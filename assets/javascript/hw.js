@@ -1,7 +1,21 @@
 var topics = ["ikaruga","metal slug x","project justice","max payne 3"]
-//Try using a loop that appends a button for each string in the array.
+//function for dumping JSON content for each button into div
+function displayAnimalImg() {
+//very sensitive about this function!
+var animalInput = $(this).attr("data-name");
+var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animalInput + "&api_key=dc6zaTOxFJmzC&limit=10";
+  //consolelog this response
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).done(function(response) {
+    console.log(queryURL);//check
+      console.log(response);//check
+    $("#animals").text(JSON.stringify(response));
+  });
+}
 function createButtons() {//function should display animal data
-  $("#animalButtons").empty();//check on how this clears buttons
+  $("#animalButtons").empty();//clears buttons info each time
   for (var i = 0; i < topics.length; i++) {
     //loop through topics array and create button
     var a = $("<button>");
@@ -12,15 +26,17 @@ function createButtons() {//function should display animal data
   }
 }
 $("#add-animal").on("click", function(event) {//event listener for add-animal button
-  event.preventDefault();//form at #add-animal will not submit self
+  event.preventDefault();//form at #add-animal will not submit form(default)
   var animalInput = $("#animal-input").val().trim();//#animal-input is input box
- //activity6
+ //activity6&8
   
-
-  topics.push(animalInput);//value of animalInput is pushed to array animals
-  createButtons();//function handles processing of movie array
+  topics.push(animalInput);//move?value of animalInput is pushed to array topics
+  console.log(topics);//console.log textbox entry in array
+  createButtons();//function handles processing of array
   //adding AJAX GET request?
 });
+//Using $(document).on instead of $(".animal").on to add event listenersto dynamically generated elements
+  $(document).on("click", ".animal", displayAnimalImg);
 
 createButtons();//function call to display initial list(?) of array(?)
 
@@ -32,12 +48,10 @@ createButtons();//function call to display initial list(?) of array(?)
   //var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animalInput + "&api_key=dc6zaTOxFJmzC&limit=10";
 
   //$.ajax({
-    //    url: queryURL,
-      //  method: "GET"
-     // })
+        //url: queryURL,
+        //method: "GET"
+      //})
       //.done(function(response) {
-        //console.log(queryURL);//check
-        //console.log(response);//check
         //var imageUrl = response.data.image_original_url;
         //var animalImg = $("<img>");//create image tag
        // animalImg.attr("src", imageUrl);
