@@ -1,10 +1,10 @@
-var topics = ["sunfish","rockfish","mocassins","tyrannosaurus rex"];
+var topics = ["sunfish","mice","haunted house","tyrannosaurus rex","flying cars","stair climbing"];
 //function for dumping JSON content for each button into div
-function displayAnimalImg() {
+function displaySomeImg() {
 //$(event).preventDefault;//wrap in event listener for buttons??
 //very sensitive about this function!
-var animalInput = $(this).attr("data-name");//refresh on data-name
-var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animalInput + "&api_key=dc6zaTOxFJmzC&limit=10";
+var nounInput = $(this).attr("data-name");//refresh on data-name
+var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + nounInput + "&api_key=8764a1be29c64f7d9b9e53c5dd2a030f&limit=10";
   
   $.ajax({
     url: queryURL,
@@ -22,14 +22,14 @@ var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animalInput + "&api_ke
       
       var p = $("<p>").text("Rating: " + results[b].rating);
       
-      var animalImg = $("<img class = 'animalImg'>");
-      animalImg.attr("src", results[b].images.fixed_height.url);
-      animalImg.attr("data-still", results[b].images.fixed_height_still.url);
-      animalImg.attr("data-animate", results[b].images.fixed_height.url);
+      var someImg = $("<img class = 'someImg'>");
+      someImg.attr("src", results[b].images.fixed_height_still.url);
+      someImg.attr("data-still", results[b].images.fixed_height_still.url);
+      someImg.attr("data-animate", results[b].images.fixed_height.url);
     
       //gif animate where?
-      $(document).on("click", ".animalImg", function() {
-      var state = $(this).data("state");
+      $(document).on("click", ".someImg", function() {
+      var state = $(this).attr("data-state");
 
       if (state == "still") {
         $(this).attr("src", $(this).attr("data-animate"));
@@ -44,7 +44,7 @@ var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animalInput + "&api_ke
     });
 //above is animate/still click function for class="gif"
       gifDiv.append(p);
-      gifDiv.append(animalImg);
+      gifDiv.append(someImg);
       $("#animals").prepend(gifDiv);
       }
     }
@@ -76,16 +76,16 @@ function createButtons() {//function should display animal data
 $("#add-animal").on("click", function(event) {//event listener for add-animal button
   event.preventDefault();//form at #add-animal will not submit form(default)
   event.stopPropagation()
-  var animalInput = $("#animal-input").val().trim();//#animal-input is input box
+  var nounInput = $("#animal-input").val().trim();//#animal-input is input box
  //activity6&8
   
-  topics.push(animalInput);//move?value of animalInput is pushed to array topics
+  topics.push(nounInput);//move?value of nounInput is pushed to array topics
   console.log(topics);//console.log textbox entry in array
   createButtons();//function handles buttons from array
 });
 //Using $(document).on instead of $(".animal").on to add event listenersto dynamically generated elements
 
-$(document).on("click", ".animal", displayAnimalImg);
+$(document).on("click", ".animal", displaySomeImg);
 createButtons();//function call to display initial list(?) of array(?)
 
 
