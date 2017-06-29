@@ -4,7 +4,7 @@ function displaySomeImg() {
 //$(event).preventDefault;//wrap in event listener for buttons??
 //very sensitive about this function!
 var nounInput = $(this).attr("data-name");//refresh on data-name and console this
-var queryURL = "http://api.giphy.com/v1/gifs/search?q=stuff+" + nounInput + "&api_key=8764a1be29c64f7d9b9e53c5dd2a030f&limit=10";
+var queryURL = "https://api.giphy.com/v1/gifs/search?q=stuff+" + nounInput + "&api_key=8764a1be29c64f7d9b9e53c5dd2a030f&limit=10";
   
   $.ajax({
     url: queryURL,
@@ -22,6 +22,7 @@ var queryURL = "http://api.giphy.com/v1/gifs/search?q=stuff+" + nounInput + "&ap
       var p = $("<p>").text("Rating: " + results[b].rating);
       
       var someImg = $("<img class = 'someImg'>");
+      someImg.attr("alt", "some..thing")
       someImg.attr("src", results[b].images.fixed_height_still.url);
       someImg.attr("data-still", results[b].images.fixed_height_still.url);
       someImg.attr("data-animate", results[b].images.fixed_height.url);
