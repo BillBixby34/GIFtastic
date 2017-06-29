@@ -1,0 +1,25 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+  font-family: "Comic Sans MS", Impact, Helvetica, sans-serif;
+  color: #777;
+}
+
+.noun {
+	margin: 15px 10px;
+	border: 5px double red;
+}
+.item{border: 3px double orange;
+
+
+}
+.nouns{
+margin-right: 20px;
+border: 5px double #236217;
+
+}
+#add-noun{
+
+}

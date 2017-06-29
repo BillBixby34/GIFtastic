@@ -1,10 +1,10 @@
 var topics = ["sunfish","mice","haunted house","tyrannosaurus rex","flying cars","stair climbing"];
-//function for dumping JSON content for each button into div
+
 function displaySomeImg() {
 //$(event).preventDefault;//wrap in event listener for buttons??
 //very sensitive about this function!
-var nounInput = $(this).attr("data-name");//refresh on data-name
-var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + nounInput + "&api_key=8764a1be29c64f7d9b9e53c5dd2a030f&limit=10";
+var nounInput = $(this).attr("data-name");//refresh on data-name and console this
+var queryURL = "http://api.giphy.com/v1/gifs/search?q=stuff+" + nounInput + "&api_key=8764a1be29c64f7d9b9e53c5dd2a030f&limit=10";
   
   $.ajax({
     url: queryURL,
@@ -13,7 +13,6 @@ var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + nounInput + "&api_key=
 
     console.log(response);//check
 
-    
     var results = response.data;
     
     for (var b = 0; b < results.length; b++){
@@ -42,10 +41,10 @@ var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + nounInput + "&api_key=
       }
       
     });
-//above is animate/still click function for class="gif"
+//above is animate/still
       gifDiv.append(p);
       gifDiv.append(someImg);
-      $("#animals").prepend(gifDiv);
+      $("#nouns").prepend(gifDiv);//how to clear #nouns on button press??
       }
     }
      
@@ -63,66 +62,28 @@ var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + nounInput + "&api_key=
 
   });
 }
-function createButtons() {//function should display animal data
-  $("#animalButtons").empty();//clears buttons info each time
+function createButtons() {//function should display noun data
+  $("#nounButtons").empty();//clears buttons info each time
   for (var i = 0; i < topics.length; i++) {
     var a = $("<button>");
-    a.addClass("animal");//add .animal to var a
-    a.attr("data-name", topics[i]);//gives .animal to values entered into array
+    a.addClass("noun");
+    a.attr("data-name", topics[i]);//gives .noun to values entered into array
     a.text(topics[i]);
-    $("#animalButtons").append(a);//at #animalButtons, append values of var a
+    $("#nounButtons").append(a);//at #nounButtons, append values of var a
   }
 }
-$("#add-animal").on("click", function(event) {//event listener for add-animal button
-  event.preventDefault();//form at #add-animal will not submit form(default)
-  event.stopPropagation()
-  var nounInput = $("#animal-input").val().trim();//#animal-input is input box
+$("#add-noun").on("click", function(event) {//event listener for #add-noun input
+  event.preventDefault();//form at #add-noun will not submit form(default)
+  var nounInput = $("#noun-input").val().trim();//#noun-input is input box
  //activity6&8
   
   topics.push(nounInput);//move?value of nounInput is pushed to array topics
   console.log(topics);//console.log textbox entry in array
   createButtons();//function handles buttons from array
 });
-//Using $(document).on instead of $(".animal").on to add event listenersto dynamically generated elements
-
-$(document).on("click", ".animal", displaySomeImg);
-createButtons();//function call to display initial list(?) of array(?)
-
-
- //create button functionality
- //not working, change .animal, relocate?
- //activity14
- //$(".animal").on("click", function() {//on click of any .animal
-  //var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animalInput + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-  //$.ajax({
-        //url: queryURL,
-        //method: "GET"
-      //})
-      //.done(function(response) {
-        //var imageUrl = response.data.image_original_url;
-        //var animalImg = $("<img>");//create image tag
-       // animalImg.attr("src", imageUrl);
-        //animalImg.attr("alt", "animal image");//this one is most suspect
-        //at top of element with id
-        //$("#animals").prepend(animalImg);
-      //});
-    //above comment out
+//Using $(document).on instead of $(".noun").on to add event listener to dynamically generated elements
+//how to empty/refresh div .item or #nouns??
+$(document).on("click", ".noun", displaySomeImg);//.on(...,...,function(){displaySomeImg();...})didn't work properly.Why?
+createButtons();//function call to createButtons
 
 
-//below is animate/still click function for class="gif"
-  //$(".gif").on("click", function() {
-    //  var state = $(this).attr("data-state");
-
-      //if (state === "still") {
-        //$(this).attr("src", $(this).attr("data-animate"));
-        //$(this).attr("data-state", 'animate');
-      //} 
-      //else {
-       
-        //$(this).attr("src", $(this).attr("data-still"));
-        //$(this).attr("data-state",'still');
-      //}
-      
-    //});
-//above is animate/still click function for class="gif"
