@@ -1,10 +1,11 @@
 var topics = ["sunfish","mice","haunted house","tyrannosaurus rex","flying cars","stair climbing"];
 
 function displaySomeImg() {
-//$(event).preventDefault;//wrap in event listener for buttons??
 //very sensitive about this function!
-var nounInput = $(this).attr("data-name");//refresh on data-name and console this
-var queryURL = "https://api.giphy.com/v1/gifs/search?q=stuff+" + nounInput + "&api_key=8764a1be29c64f7d9b9e53c5dd2a030f&limit=10";
+$(".item").empty();//have to click button twice to start.Optimize
+var nounInput = $(this).attr("data-name");//value is given attribute data-name
+console.log(nounInput);
+var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + nounInput + "+stuff&api_key=8764a1be29c64f7d9b9e53c5dd2a030f&limit=10";
   
   $.ajax({
     url: queryURL,
@@ -30,7 +31,7 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=stuff+" + nounInput + "&a
       //gif animate where?
       $(document).on("click", ".someImg", function() {
       var state = $(this).attr("data-state");
-
+      console.log(state);
       if (state == "still") {
         $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", 'animate');
@@ -48,19 +49,7 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=stuff+" + nounInput + "&a
       $("#nouns").prepend(gifDiv);//how to clear #nouns on button press??
       }
     }
-     
-    
-    //console.log(response.data.image_original_url);//check
-//$("#animals").text(JSON.stringify(response));//added text to id="animals"
-  //activity12
-        //var imageUrl = response.data.image_original_url;
-        //console.log(imageURL);
-        //var animalImg = $("<img>");//create image tag
-       //animalImg.attr("src", imageUrl);
-        //animalImg.attr("alt", "animal image");//this one is most suspect
-        //at top of element with id
-        //$("#animals").prepend(animalImg);
-
+      
   });
 }
 function createButtons() {//function should display noun data
@@ -85,6 +74,7 @@ $("#add-noun").on("click", function(event) {//event listener for #add-noun input
 //Using $(document).on instead of $(".noun").on to add event listener to dynamically generated elements
 //how to empty/refresh div .item or #nouns??
 $(document).on("click", ".noun", displaySomeImg);//.on(...,...,function(){displaySomeImg();...})didn't work properly.Why?
+//seem to need $(document.body).on(..)//refer to 7-1 line 85-91
 createButtons();//function call to createButtons
 
 
