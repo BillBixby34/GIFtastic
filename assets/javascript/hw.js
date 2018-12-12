@@ -18,7 +18,7 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + nounInput + "+stuff&a
     
     for (var b = 0; b < results.length; b++){
       if (results[b].rating !== "r" && results[b].rating !== "pg-13") {  
-      var gifDiv = $("<div class='item'>");
+      var gifDiv = $("<span class='item'>");
       
       var p = $("<p>").text("Rating: " + results[b].rating);
       
